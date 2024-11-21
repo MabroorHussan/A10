@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%; margin: 0; display: flex; flex-direction: column;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example</title>
+</head>
+<body style="height: 100%; margin: 0; display: flex; flex-direction: column;">
+    <main style="flex: 1;">
+      <h1>A10 Part 2</h1>
+      <p flex: 1;>The page will check for cookies when it loads.</p>
+    </main>
+    
+    <script>
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            let user = getCookie("username");
+            if (user != "") {
+                alert("Welcome again " + user);
+            } else {
+                user = prompt("Please enter your name:", "");
+                if (user != "" && user != null) {
+                    setCookie("username", user, 365);
+                }
+            }
+        }
+
+        // Execute the checkCookie function when the page loads
+        window.onload = checkCookie;
+    </script>
+    <footer style="text-align: center; margin-bottom: 0; width: 100%; margin-left: 0;">
+        <p>&copy; 11/19/24, Mabroor Hussan. All rights reserved.</p>
+    </footer>
+</body>
+</html>
